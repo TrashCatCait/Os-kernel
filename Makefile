@@ -1,12 +1,12 @@
 -include ./Makefile.var
 
 ##Compiler settings
-CC=gcc
-LD=ld 
+CC=clang
+LD=ld
 
 ##Kernel Compile flags
-CFLAGS=-ffreestanding -mno-red-zone
-LFLAGS=-nostdlib
+CFLAGS=--nostdlib -ffreestanding -mno-red-zone
+LFLAGS=-nostdlib 
 BUILD=build
 
 
@@ -20,6 +20,5 @@ $(BUILD):
 	mkdir $@
 
 .PHONY: clean 
-
 clean:
-	rm -rf build $(KENTARGET)
+	@rm -rf $(BUILD)  $(KENTARGET)
