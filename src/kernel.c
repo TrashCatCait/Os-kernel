@@ -41,10 +41,6 @@ void clrScrGop(uint32_t pixelPerSL, uint32_t width, uint32_t height, uint32_t pi
  
 
 void _start(bootInfo kernelInfo) {
-    while(1) {
-        clrScrGop(kernelInfo.frameBuf.PPSL, kernelInfo.frameBuf.width, kernelInfo.frameBuf.height, in_byte(0x60), kernelInfo.frameBuf.baseAdd);
-   
-    }   
     return;
 }
 
