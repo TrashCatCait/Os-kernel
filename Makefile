@@ -8,7 +8,7 @@ ASM=nasm
 LD=ld.lld
 
 ##Kernel Compile flags
-CFLAGS=-nostdlib -flto -ffreestanding 
+CFLAGS=-nostdlib -O3 -flto -ffreestanding 
 LFLAGS=--nostdlib
 AFLAGS=-felf64
 

@@ -19,4 +19,9 @@ extern void out_dword(uint16_t port, uint32_t val);
 //Wait for IO to be avaliable based on function from os-dev wiki.
 extern void wait_io();
 
+extern void hltloop();
+extern void hangloop();
+extern void clear_int();
+extern void enable_int();
+
 #endif

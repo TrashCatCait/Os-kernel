@@ -1,52 +1,40 @@
 #include "includes/inttypes.h"
 #include "includes/gdt.h"
 #include "includes/io.h"
-//same structs as what is found in the EFI program we just use different typedefs.
-//As I personally prefer UNIX and LINUX like typedefs over UEFI typedefs
-typedef struct {
-    void *memMap;
-    uint64_t mapSize;
-    uint64_t descSize;
-} memLay;
+#include "includes/utils.h"
+#include "includes/idt.h" 
+#include "includes/kernel.h"
 
-typedef struct {
-    void* baseAdd;
-    size_t bufferSize;
-    uint32_t width;
-    uint32_t height;
-    uint32_t PPSL; // pixels per scan line
-} frameBuffer;
+bootInfo *KI;
+frameBuffer *FB;
 
-typedef struct {
-    frameBuffer frameBuf;
-    memLay memLayout;
-} bootInfo;
+void ker_init(bootInfo kernelInfo) {
+    //redefine bootInfo to make it global for the kernel as this is extremly useful. Tecnically not new variables just pointers to the old ones
+    KI = &kernelInfo;
+    FB = &kernelInfo.frameBuf;
+    clear_int();
+    //Used as psudeo error code as text isn't support so if the screen stops at red I know an error has happened.
+    //red means gdt error
+    clrScrGop(FB->PPSL, FB->width, FB->height, 0xff0000, FB->baseAdd);
 
-
-//Use details taken from GOP is to write to pixels.
-void plotPixelGop(int pixelPerSL, int x, int y, uint32_t pixel, void *buffer) {
-   *((uint32_t*)(buffer + 4 * pixelPerSL * y + 4 * x)) = pixel;
+    //set up some stuff for or kernel
+    load_gdt();
+    //Green means idt error
+    clrScrGop(FB->PPSL, FB->width, FB->height, 0x00ff00, FB->baseAdd);
+    init_idt();
+    enable_int();
+    return;
 }
 
-//gop clear screen function 
-void clrScrGop(uint32_t pixelPerSL, uint32_t width, uint32_t height, uint32_t pixel, void *buffer) {
-   for(int i = 0; i < width; i++)
-    {
-        for(int j = 0; j < height; j++)
-        {
-            plotPixelGop(pixelPerSL, i, j, pixel, buffer);
-        }
-    }
+void keyboard_handle(char scancode){
+    clrScrGop(FB->PPSL, FB->width, FB->height, 0xfff0f0, FB->baseAdd);
 }
- 
 
 void _start(bootInfo kernelInfo) {
-    clrScrGop(kernelInfo.frameBuf.PPSL, kernelInfo.frameBuf.width, kernelInfo.frameBuf.height, 0x9932CC, kernelInfo.frameBuf.baseAdd);
-    load_gdt();
+    ker_init(kernelInfo);
+    clrScrGop(FB->PPSL, FB->width, FB->height, 0x0000ff, FB->baseAdd); 
     while (1) {
-        clrScrGop(kernelInfo.frameBuf.PPSL, kernelInfo.frameBuf.width, kernelInfo.frameBuf.height, in_byte(0x60), kernelInfo.frameBuf.baseAdd);
-        wait_io(); 
-
+        //this is treated as success for now
     }
     return;
 }
