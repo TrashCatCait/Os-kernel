@@ -1,6 +1,6 @@
 #ifndef INT_TYPE_DEF_H
 #define INT_TYPE_DEF_H
-
+//just datatype definations
 typedef unsigned long long uint64_t;
 typedef long long int64_t;
 

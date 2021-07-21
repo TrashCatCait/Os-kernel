@@ -2,8 +2,7 @@
 #define KERNEL_H
 #include "utils.h"
 
-void ker_init(bootInfo kernelInfo); 
-void keyboard_handle(char scancode);
-void _start(bootInfo kernelInfo);
+void ker_init(efiinfo_t kernelInfo); 
+void _start(efiinfo_t kernelInfo);
 
 #endif
