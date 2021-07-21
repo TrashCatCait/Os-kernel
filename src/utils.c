@@ -1,6 +1,6 @@
 #include "includes/utils.h"
 //Use details taken from GOP is to write to pixels.
-void plot_pixel_gop(int pixelPerSL, int x, int y, uint32_t pixel, void *buffer) {
+void plot_pixel_gop(uint32_t pixelPerSL, int x, int y, uint32_t pixel, void *buffer) {
    *((uint32_t*)(buffer + 4 * pixelPerSL * y + 4 * x)) = pixel;
 }
 

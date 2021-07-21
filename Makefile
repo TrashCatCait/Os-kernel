@@ -31,6 +31,19 @@ $(KENTARGET): $(BUILD) $(COBJS) $(ASMOBJS)
 $(BUILD):
 	mkdir -vp $@
 
-.PHONY: clean 
-clean:
-	@rm -rvf $(BUILD) $(KENTARGET)
+##Debug options:
+##Basic error checking
+.PHONY: clean check strictcheck
+
+check:
+	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/*.c -- -DDEBUG -Isrc/includes
+	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/includes/*.h -- -DDEBUG -Isrc/includes
+
+##This is a more strict check. That not all warnings actually have to be changed such as some of the magic numbers 
+strictcheck:
+	##Only checks the .c files as the asm files would likely produce false postive errors
+	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" src/*.c -- -DDEBUG -Isrc/includes
+	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" src/includes/*.h -- -DDEBUG -Isrc/includes
+
+clean: 
+	@rm -rvf *.plist $(BUILD) $(KENTARGET)

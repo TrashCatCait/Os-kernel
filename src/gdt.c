@@ -42,9 +42,8 @@ void init_gdt(){
     *userData = *userCode;
     userData->executeable = 0;
     
-    gdtPointer.size = (sizeof(gdtentry_t) * 5) - 1;
+    gdtPointer.size = sizeof(gdt) - 1;
     gdtPointer.offset = (uint64_t)&gdt;
     
     loadgdt(&gdtPointer);
-    return;
 }

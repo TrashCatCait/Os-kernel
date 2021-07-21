@@ -8,7 +8,7 @@ typedef struct memLay {
     void *memMap;
     uint64_t mapSize;
     uint64_t descSize;
-} efimemory_t;
+} __attribute__((aligned(32))) efimemory_t;
 
 typedef struct frameBuffer {
     void* baseAdd;
@@ -16,16 +16,16 @@ typedef struct frameBuffer {
     uint32_t width;
     uint32_t height;
     uint32_t scanLine; // pixels per scan line
-} framebuffer_t;
+} __attribute__((aligned(32))) framebuffer_t;
 
 
 typedef struct bootInfo {
     framebuffer_t frameBuf;
     efimemory_t memLayout;
-} efiinfo_t;
+}__attribute__((aligned(64))) efiinfo_t;
 
 //Use details taken from GOP is to write to pixels.
-void plot_pixel_gop(int pixelPerSL, int x, int y, uint32_t pixel, void *buffer);
+void plot_pixel_gop(uint32_t pixelPerSL, int x, int y, uint32_t pixel, void *buffer);
 
 
 //gop clear screen function 
