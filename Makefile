@@ -35,11 +35,15 @@ $(BUILD):
 ##Basic error checking
 .PHONY: clean check strictcheck
 
+##we don't check cpp guidelines as we are using base C and not cpp
+##we don't use magic numbers check as that just reports all numbers that have been used.
+##header guards are disabled as the fixes suggested casued another error
+##altera-struct-pack is disabled as it suggests fixes that will actually break things i.e. changing packed stuctures to unpacked and aligned. However I will use this to align structures where packed isn't required
 check:
 	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/*.c -- -DDEBUG -Isrc/includes
 	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/includes/*.h -- -DDEBUG -Isrc/includes
 
-##This is a more strict check. That not all warnings actually have to be changed such as some of the magic numbers 
+##This is a more strict check. That not all warnings actually have to be changed such as some of the magic number warnings. Or the warnings related to the gdt structure alignment as those structures have to be packed
 strictcheck:
 	##Only checks the .c files as the asm files would likely produce false postive errors
 	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" src/*.c -- -DDEBUG -Isrc/includes
