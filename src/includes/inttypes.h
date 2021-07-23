@@ -1,5 +1,5 @@
-#ifndef INTTYPES_H
-#define INTTYPES_H
+#ifndef SRC_INCLUDES_INTTYPES_H
+#define SRC_INCLUDES_INTTYPES_H
 //just datatype definations
 typedef unsigned long long uint64_t;
 typedef long long int64_t;

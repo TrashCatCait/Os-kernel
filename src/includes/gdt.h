@@ -1,5 +1,5 @@
-#ifndef GDT_H
-#define GDT_H
+#ifndef SRC_INCLUDES_GDT_H 
+#define SRC_INCLUDES_GDT_H
 #include "inttypes.h"
 
 struct gdtEntry {

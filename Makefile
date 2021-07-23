@@ -21,7 +21,6 @@ COBJS=$(patsubst src/%.c, $(BUILD)/%.o, $(CSRC))
 
 $(KENTARGET): $(BUILD) $(COBJS) $(ASMOBJS)
 	$(LD) $(LFLAGS) -T./kernel.ld -o $@ $(COBJS) $(ASMOBJS) 
-
 ./$(BUILD)/%.o: ./src/%.asm
 	$(ASM) $(AFLAGS) $^ -o $@
 
@@ -33,7 +32,7 @@ $(BUILD):
 
 ##Debug options:
 ##Basic error checking
-.PHONY: clean check strictcheck
+.PHONY: clean check strictcheck fullcheck
 
 ##we don't check cpp guidelines as we are using base C and not cpp
 ##we don't use magic numbers check as that just reports all numbers that have been used.
@@ -43,8 +42,14 @@ check:
 	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/*.c -- -DDEBUG -Isrc/includes
 	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/includes/*.h -- -DDEBUG -Isrc/includes
 
-##This is a more strict check. That not all warnings actually have to be changed such as some of the magic number warnings. Or the warnings related to the gdt structure alignment as those structures have to be packed
+##More strict check that checks structures packing aswell. This is disdabled by default are there are some false postives such as GDT,IDT,etc...
 strictcheck:
+	##Only checks the .c files as the asm files would likely produce false postive errors
+	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-llvm-header-guard,-readability-magic-numbers" src/*.c -- -DDEBUG -Isrc/includes
+	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-llvm-header-guard,-readability-magic-numbers" src/includes/*.h -- -DDEBUG -Isrc/includes
+
+##Full and complete check with clang tidy. Only cpp features disabled. Due to this project being C
+fullcheck: 
 	##Only checks the .c files as the asm files would likely produce false postive errors
 	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" src/*.c -- -DDEBUG -Isrc/includes
 	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" src/includes/*.h -- -DDEBUG -Isrc/includes

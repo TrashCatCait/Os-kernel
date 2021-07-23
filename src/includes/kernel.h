@@ -1,5 +1,5 @@
-#ifndef KERNEL_H
-#define KERNEL_H
+#ifndef SRC_INCLUDES_KERNEL_H
+#define SRC_INCLUDES_KERNEL_H
 #include "utils.h"
 
 void ker_init(efiinfo_t kernelInfo); 

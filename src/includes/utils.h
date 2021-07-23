@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef SRC_INCLUDES_UTILS_H
+#define SRC_INCLUDES_UTILS_H
 
 #include "inttypes.h"
 //same structs as what is found in the EFI program we just use different typedefs.
@@ -25,7 +25,7 @@ typedef struct bootInfo {
 }__attribute__((aligned(64))) efiinfo_t;
 
 //Use details taken from GOP is to write to pixels.
-void plot_pixel_gop(uint32_t pixelPerSL, int x, int y, uint32_t pixel, void *buffer);
+void plot_pixel_gop(uint32_t pixelPerSL, uint32_t x, uint32_t y, uint32_t pixel, void *buffer);
 
 
 //gop clear screen function 
