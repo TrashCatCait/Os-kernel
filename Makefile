@@ -9,7 +9,7 @@ LD=ld.lld
 
 ##Kernel Compile flags
 CFLAGS=-nostdlib -flto -ffreestanding 
-LFLAGS=--nostdlib
+LFLAGS=
 AFLAGS=-felf64
 
 ##Settings
