@@ -41,6 +41,7 @@ void ker_init(efiinfo_t kernelInfo) {
 }
 
 void ker_start(efiinfo_t kernelInfo) {
+    hltloop();
     ker_init(kernelInfo);
     while (1) {
         clr_scr_gop(

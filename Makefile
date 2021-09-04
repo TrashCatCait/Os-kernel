@@ -20,7 +20,8 @@ ASMOBJS=$(patsubst src/%.asm, $(BUILD)/%.o, $(ASRC))
 COBJS=$(patsubst src/%.c, $(BUILD)/%.o, $(CSRC))
 
 $(KENTARGET): $(BUILD) $(COBJS) $(ASMOBJS)
-	$(LD) $(LFLAGS) -T./kernel.ld -o $@ $(COBJS) $(ASMOBJS) 
+	$(LD) $(LFLAGS) -T./kernel.ld -o $@ $(COBJS) $(ASMOBJS)
+
 ./$(BUILD)/%.o: ./src/%.asm
 	$(ASM) $(AFLAGS) $^ -o $@
 
