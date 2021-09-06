@@ -1,21 +1,18 @@
 [bits 64]
 
-section .bootcat
-dq 0x6980081e
-
+section .catboot
+    dd 0xcafebabe
 
 section .text
     global kernel_start
+    extern kernel_main
 
 kernel_start:
+    cli
+    mov rax,0x2f202f202f202f20
     mov rdi,0xb8000
-    mov rax, 0x2f202f202f202f20
-    mov ecx, 500
+    mov rcx,500
     rep stosq
+    call kernel_main
     jmp $
 
-section .data
-
-section .rodata
-
-section .bss
