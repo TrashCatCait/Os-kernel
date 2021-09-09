@@ -1,8 +1,16 @@
 OUTPUT_FORMAT(elf64-x86-64)
 ENTRY(kernel_start)
 
+INPUT 
+(
+    ./build/kernel_enter.o
+    ./build/main.o
+    ./build/textmode.o
+)
+
 SECTIONS
 {
+    . = 0x10000;
     .text : ALIGN(0x1000)
     {
 	*(.catboot)

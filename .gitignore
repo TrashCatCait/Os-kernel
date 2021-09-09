@@ -1,4 +1,3 @@
 build
 *.plist
-
-kernel.elf
+*.elf
