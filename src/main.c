@@ -2,7 +2,7 @@
 #include "includes/textmode.h"
 #include "includes/gdt.h"
 #include "includes/io.h"
-
+#include "includes/idt.h"
 /*
  * honestly I'm more happy I managed to boot a 64 bit elf file from nothing
  * but BIOS I've done this with UEFI before but wanted to do BIOS as it's just
@@ -20,6 +20,10 @@ void kernel_init() {
     init_gdt(); //set up and attempt to load GDT
     set_cursor(80); //set cursor position to 80 
     print_str("Loaded Kernel GDT Successfully",0x1f); //print string
+    
+    init_idt();
+    set_cursor(160); 
+    print_str("Loaded IDT Successfullt please press a key to trigger an interupt",0x1f);
 }
 
 void kernel_main() {

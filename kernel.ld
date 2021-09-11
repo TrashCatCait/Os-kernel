@@ -9,6 +9,9 @@ INPUT
     ./build/load_tables.o /*asm code to reload IDT, GDT, etc...*/
     ./build/gdt.o /*C code defining GDT*/
     ./build/io.o
+    ./build/isr.o
+    ./build/isr_handlers.o
+    ./build/idt.o
 )
 
 SECTIONS

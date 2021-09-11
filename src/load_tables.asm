@@ -1,6 +1,7 @@
 [bits 64]
 section .text 
     global load_gdt
+    global load_idt
 
 load_gdt:
     lgdt [rdi] ;called from C compiled on linux gdt pointer should be in RDI
@@ -20,3 +21,8 @@ segement_flush:
     mov ss, ax   
     retq
 
+
+load_idt:
+    lidt [rdi]
+    sti
+    retq
