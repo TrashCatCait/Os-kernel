@@ -8,7 +8,7 @@ ASM=nasm
 LD=ld.lld
 
 ##Kernel Compile flags
-CFLAGS=-nostdlib -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -m64 -ffreestanding 
+CFLAGS=-nostdlib -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -ffreestanding 
 AFLAGS=-felf64
 
 ##Settings

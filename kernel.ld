@@ -6,11 +6,12 @@ INPUT
     ./build/kernel_enter.o
     ./build/main.o
     ./build/textmode.o
+    ./build/gdt.o
 )
 
 SECTIONS
 {
-    . = 0x10000;
+    . = 0x11000;
     .text : ALIGN(0x1000)
     {
 	*(.catboot)
