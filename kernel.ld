@@ -12,6 +12,7 @@ INPUT
     ./build/isr.o
     ./build/isr_handlers.o
     ./build/idt.o
+    ./build/pic.o
 )
 
 SECTIONS

@@ -1,6 +1,7 @@
 #include "includes/idt.h"
 #include "includes/isr.h"
 #include "includes/typedefs.h"
+#include "includes/pic.h"
 
 void idt_set_isr(idt64_entry_t *entry, void *isr, uint8_t flags) {
     entry->reserved = 0;
@@ -23,5 +24,8 @@ void init_idt() {
     idtDesc.size = sizeof(idt) - 1;
     idtDesc.offset = (uint64_t)&idt[0];
 
+    remap_pic(0x00, 0x08);
+    mask_pic(0xfd,0xff);
     load_idt(&idtDesc);
+    
 }

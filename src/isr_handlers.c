@@ -2,6 +2,7 @@
 #include "includes/io.h"
 #include "includes/textmode.h"
 
+//called from ASM
 void isr1_handler() {
     uint8_t scan_code = in_byte(0x0060); //read byte in from keyboard 
     set_cursor(240);

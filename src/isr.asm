@@ -3,6 +3,7 @@
 section .text 
     global isr1
     extern isr1_handler
+
 %macro pushaq 0
     push rax
     push rbx
