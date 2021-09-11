@@ -10,6 +10,7 @@
 void set_cursor(uint16_t pos);
 void print_char(char character, uint8_t color);
 void print_str(char *str, uint8_t color);
-void clear_scr();
+void clear_scr(uint8_t color);
+void scroll();
 
 #endif 

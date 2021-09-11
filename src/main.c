@@ -13,17 +13,17 @@
 //I put all init stuff in here for simplicity
 void kernel_init() {
     clear_interupts(); //clear hardware interupts 
-    clear_scr(); //clear the screen.
+    clear_scr(0x0f);
     set_cursor(0); //set the cursor to position zero.
-    print_str("Hello world from an elf kernel written in C", 0x1f);
+    print_str("Hello world from an elf kernel written in C", 0x0f);
     
     init_gdt(); //set up and attempt to load GDT
     set_cursor(80); //set cursor position to 80 
-    print_str("Loaded Kernel GDT Successfully",0x1f); //print string
+    print_str("Loaded Kernel GDT Successfully",0x0f); //print string
     
     init_idt();
     set_cursor(160); 
-    print_str("Loaded IDT Successfullt please press a key to trigger an interupt",0x1f);
+    print_str("Loaded IDT Successfully please press a key to trigger an interupt",0x0f);
 }
 
 void kernel_main() {
