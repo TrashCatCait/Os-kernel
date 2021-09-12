@@ -6,6 +6,7 @@ INPUT
     ./build/kernel_enter.o
     ./build/main.o
     ./build/textmode.o
+    ./build/strings.o
     ./build/load_tables.o /*asm code to reload IDT, GDT, etc...*/
     ./build/gdt.o /*C code defining GDT*/
     ./build/io.o
@@ -13,6 +14,8 @@ INPUT
     ./build/isr_handlers.o
     ./build/idt.o
     ./build/pic.o
+    ./build/acpi.o
+    ./build/smbios.o
 )
 
 SECTIONS

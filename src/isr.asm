@@ -1,8 +1,11 @@
 [bits 64]
 
 section .text 
-    global isr1
-    extern isr1_handler
+    global isr0
+    global isr33
+    extern isr33_handler
+
+    
 
 %macro pushaq 0
     push rax
@@ -18,7 +21,12 @@ section .text
     pop rdx
 %endmacro
 
-isr1:
+isr0:
+    pushaq
+    popaq
+    iretq
+
+isr33:
    pushaq
    call isr1_handler
    popaq

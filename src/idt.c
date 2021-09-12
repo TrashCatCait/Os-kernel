@@ -17,14 +17,14 @@ void idt_set_isr(idt64_entry_t *entry, void *isr, uint8_t flags) {
 void init_idt() {
     static idt64_entry_t idt[256]; //256 entries in IDT
     idtr64_t idtDesc;
-
-    idt_set_isr(&idt[1], &isr1, 0x8e);
+    idt_set_isr();
+    idt_set_isr(&idt[32], &is33, 0x8e);
     
 
     idtDesc.size = sizeof(idt) - 1;
     idtDesc.offset = (uint64_t)&idt[0];
 
-    remap_pic(0x00, 0x08);
+    remap_pic(0x20, 0x28);
     mask_pic(0xfd,0xff);
     load_idt(&idtDesc);
     

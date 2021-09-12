@@ -3,6 +3,10 @@
 #include "includes/gdt.h"
 #include "includes/io.h"
 #include "includes/idt.h"
+#include "includes/acpi.h"
+#include "includes/smbios.h"
+
+
 /*
  * honestly I'm more happy I managed to boot a 64 bit elf file from nothing
  * but BIOS I've done this with UEFI before but wanted to do BIOS as it's just
@@ -24,6 +28,12 @@ void kernel_init() {
     init_idt();
     set_cursor(160); 
     print_str("Loaded IDT Successfully please press a key to trigger an interupt",0x0f);
+
+    uint8_t *rsdpptr = find_rsdp((uint8_t*)0x000e0000, (uint8_t*)0x000fffff);
+
+
+    uint8_t *smbios = find_smbios32((uint8_t*)0x000e0000, (uint8_t *)0x000fffff);
+    uint8_t *smbios64 = find_smbios64((uint8_t*)0x000e0000, (uint8_t *)0x000fffff);
 }
 
 void kernel_main() {
