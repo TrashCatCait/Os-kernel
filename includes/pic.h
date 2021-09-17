@@ -1,7 +1,7 @@
 #ifndef PIC_H
 #define PIC_H
 
-#include "./typedefs.h"
+#include <typedefs.h>
 
 #define PIC1 0x0020
 #define PIC2 0x00a0

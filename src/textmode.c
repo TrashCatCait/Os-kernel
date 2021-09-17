@@ -1,5 +1,5 @@
-#include "./includes/textmode.h"
-#include "./includes/io.h"
+#include <io.h>
+#include <textmode.h>
 
 static uint16_t cursor_pos; 
 /*
@@ -16,7 +16,7 @@ void set_cursor(uint16_t pos) {
     out_byte(0x03d4,0x0f);
     out_byte(0x03d5,(uint8_t)(pos & 0xff));
     out_byte(0x03d4,0x0e);
-    out_byte(0x03d5,(uint8_t)((pos >> 8) & 0xff));
+    out_byte(0x03d5,(uint8_t)(pos >> 8 & 0xff));
     cursor_pos = pos;
 }
 
@@ -61,7 +61,7 @@ void clear_scr(uint8_t color) {
 void print_strn(char *str, uint8_t color, uint32_t len) {
     int position = 0;
     while(position < len) {
-	print_char(*str, 0x0f);
+	print_char(*str, color);
 	position++;
 	str++;
     }

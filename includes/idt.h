@@ -1,7 +1,7 @@
 #ifndef IDT_H 
 #define IDT_H
 
-#include "./typedefs.h"
+#include <typedefs.h>
 
 typedef struct idt64_entry {
     uint16_t offset_low; //isr offset low 

@@ -1,5 +1,5 @@
-#include "includes/pic.h" 
-#include "includes/io.h"
+#include <io.h>
+#include <pic.h> 
 
 //at the moment we only use a PIC for interupts but I plan to add support IOAPIC and APIC in time.
 void remap_pic(uint8_t moffset, uint8_t soffset) {

@@ -1,4 +1,4 @@
-#include "includes/gdt.h"
+#include <gdt.h>
 
 void init_gdt() {
     static gdt_entry_t gdt[5];

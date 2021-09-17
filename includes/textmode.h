@@ -1,7 +1,7 @@
 #ifndef BIOS_TEXT_MODE_H
 #define BIOS_TEXT_MODE_H 
-#include "./typedefs.h"
-#include "./va_list.h"
+#include <typedefs.h>
+#include <va_list.h>
 
 #define VGA_COLS 80 
 #define VGA_MEM (uint8_t*)0xb8000
@@ -16,11 +16,5 @@ void clear_scr(uint8_t color);
 void scroll();
 void print_strn(char *str, uint8_t color, uint32_t len);
 void print_num(int64_t number, int len);
-
-
-//TODO Don't use yet
-void vprintf(const char *format, va_list list);
-void printf(const char *format, ...);
-
 
 #endif 

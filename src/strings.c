@@ -1,4 +1,4 @@
-#include "includes/strings.h"
+#include <strings.h>
 
 //compare non null terminated strings
 int strn_cmp(char *str1, char *str2, int len) {

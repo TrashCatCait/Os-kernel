@@ -1,6 +1,6 @@
-#include "includes/smbios.h"
-#include "includes/strings.h"
-#include "includes/textmode.h"
+#include <smbios.h>
+#include <strings.h>
+#include <textmode.h>
 
 /*
  * all printing is used as debug and to give me visual representations
@@ -8,7 +8,7 @@
  */
 
 
-uint8_t *find_smbios32(uint8_t *start, uint8_t *end) {
+uint8_t *find_smbios32(uint8_t *start, const uint8_t *end) {
     struct smbios32_entry *smbios32;
     set_cursor(cords_to_pos(0,6));
 
@@ -33,7 +33,7 @@ uint8_t *find_smbios32(uint8_t *start, uint8_t *end) {
  * Either way if it exists we will find it if not 
  * we just have to relie on the 32bit entry point.
  */
-uint8_t *find_smbios64(uint8_t *start, uint8_t *end) {
+uint8_t *find_smbios64(uint8_t *start, const uint8_t *end) {
     struct smbios64_entry *smbios64;
     set_cursor(cords_to_pos(0,8));
     

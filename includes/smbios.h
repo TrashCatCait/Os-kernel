@@ -1,6 +1,6 @@
 #ifndef SMBIOS_H
 #define SMBIOS_H
-#include "./typedefs.h"
+#include <typedefs.h>
 
 struct smbios32_entry {
     char anchor_str[4]; //version 1 - 2.9 anchor string
@@ -32,9 +32,9 @@ struct smbios64_entry {
 };
 
 //function to located pre 2015 structure
-uint8_t *find_smbios32(uint8_t *start, uint8_t *end);
+uint8_t *find_smbios32(uint8_t *start, const uint8_t *end);
 //function to located post 2015 structure
-uint8_t *find_smbios64(uint8_t *start, uint8_t *end);
+uint8_t *find_smbios64(uint8_t *start, const uint8_t *end);
 
 
 #endif

@@ -8,7 +8,7 @@ ASM=nasm
 LD=ld.lld
 
 ##Kernel Compile flags
-CFLAGS=-Os -nostdlib -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -ffreestanding 
+CFLAGS=-Os -nostdlib -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -ffreestanding -I./includes
 AFLAGS=-felf64
 
 ##Settings
@@ -39,20 +39,21 @@ $(BUILD):
 ##header guards are disabled as the fixes suggested casued another error
 ##altera-struct-pack is disabled as it suggests fixes that will actually break things i.e. changing packed stuctures to unpacked and aligned. However I will use this to align structures where packed isn't required
 check:
-	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/*.c -- -DDEBUG -Isrc/includes
-	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" src/includes/*.h -- -DDEBUG -Isrc/includes
+	clang-tidy -checks="*,-hicpp-*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" ./src/*.c -- -DDEBUG -I./includes
+	clang-tidy -checks="*,-hicpp-*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-readability-magic-numbers,-llvm-header-guard,-altera-struct-pack-align" ./includes/*.h -- -DDEBUG -I./includes
 
 ##More strict check that checks structures packing aswell. This is disdabled by default are there are some false postives such as GDT,IDT,etc...
 strictcheck:
 	##Only checks the .c files as the asm files would likely produce false postive errors
-	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-llvm-header-guard,-readability-magic-numbers" src/*.c -- -DDEBUG -Isrc/includes
-	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-llvm-header-guard,-readability-magic-numbers" src/includes/*.h -- -DDEBUG -Isrc/includes
+	clang-tidy -p ./ -checks="*,-hicpp-*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-llvm-header-guard,-readability-magic-numbers" ./src/*.c -- -DDEBUG -I./includes
+	clang-tidy -p ./ -checks="*,-hicpp-*,-clang-analyzer-cplusplus*,-cppcoreguidelines*,-llvm-header-guard,-readability-magic-numbers" ./includes/*.h -- -DDEBUG -I./includes
+
 
 ##Full and complete check with clang tidy. Only cpp features disabled. Due to this project being C
 fullcheck: 
 	##Only checks the .c files as the asm files would likely produce false postive errors
-	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" src/*.c -- -DDEBUG -Isrc/includes
-	clang-tidy  -checks="*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" src/includes/*.h -- -DDEBUG -Isrc/includes
+	clang-tidy -p=. -checks="*,-hicpp-*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" ./src/*.c 
+	clang-tidy -p=./includes -checks="*,-hicpp-*,-clang-analyzer-cplusplus*,-cppcoreguidelines*" ./includes/*.h 
 
 clean: 
 	@rm -rvf *.plist $(BUILD) $(KENTARGET)

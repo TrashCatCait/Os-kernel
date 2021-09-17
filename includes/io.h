@@ -1,7 +1,7 @@
 #ifndef ASM_IO_DEFINATIONS_H
 #define ASM_IO_DEFINATIONS_H 
 
-#include "./typedefs.h"
+#include <typedefs.h>
 
 /* 
  * These functions prototypes are here but they 

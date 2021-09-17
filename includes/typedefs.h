@@ -4,6 +4,7 @@
 //64 bit
 typedef unsigned long long uint64_t;
 typedef long long int64_t;
+typedef uint64_t size_t;
 
 //32 bit
 typedef unsigned int uint32_t;
