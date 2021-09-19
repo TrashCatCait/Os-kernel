@@ -16,6 +16,7 @@ INPUT
     ./build/pic.o
     ./build/acpi.o
     ./build/smbios.o
+    ./build/gui.o
 )
 
 SECTIONS

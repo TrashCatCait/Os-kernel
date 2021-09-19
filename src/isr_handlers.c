@@ -1,6 +1,7 @@
 #include <io.h>
 #include <isr_handlers.h>
 #include <pic.h>
+#include <gui.h>
 #include <textmode.h>
 
 void isr0_handler() {
@@ -146,8 +147,8 @@ void isr32_handler() {
 
 //called from ASM
 void isr33_handler() {
-    set_cursor(240);
-    print_str("Hello Interupts",0x0f);
+    uint8_t scancode = in_byte(0x60);
+    draw_str8x16("Hello Interupts",0x0f,0,0);
     //send end of interupt to pic
     out_byte(0x20, 0x20);
     out_byte(0xa0, 0x20);
