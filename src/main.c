@@ -35,6 +35,7 @@ void kernel_init(framebfr_t *fb, bootinfo_t *bi) {
 
 void kernel_main(framebfr_t *fb, bootinfo_t *bootinfo) {
     kernel_init(fb, bootinfo); //initliase the kernel
+    clear_gui(0x00);
     while(1) {
 	hlt_c(); //halt the CPU until interupt occurs
     }

@@ -23,7 +23,7 @@ typedef char int8_t;
 
 //Structures
 typedef struct framebfr {
-    uint8_t *buffer_base;
+    void *buffer_base;
     size_t size;
     uint32_t width;
     uint32_t height;

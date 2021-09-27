@@ -22,6 +22,7 @@ INPUT
 SECTIONS
 {
     . = 0x11000;
+    _ker_start = .; 
     .text : ALIGN(0x1000)
     {
 	*(.catboot)
@@ -40,5 +41,7 @@ SECTIONS
 	*(COMMON)
 	*(.bss)
     }
+
+    _ker_end = .;
 
 }
