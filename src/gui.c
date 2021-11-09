@@ -2,8 +2,8 @@
 #include <gui.h>
 
 
-static uint8_t *buffer_base;
-static size_t size; 
+static uint32_t *buffer_base;
+static uint64_t size; 
 static uint32_t width;
 static uint32_t height;
 static uint32_t ppsl;
@@ -17,10 +17,9 @@ void setup_bfr(framebfr_t *fb) {
     ppsl = fb->ppsl;
 }
 
-
 void clear_gui(uint8_t color) {
     for(size_t index = 0; index < size; index++) {
-	buffer_base[index] = color;
+        buffer_base[index] = 0x000000ff;
     }
 }
 
